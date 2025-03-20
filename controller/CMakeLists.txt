@@ -1,2 +1,10 @@
 add_library(cnc_controller_data INTERFACE)
 target_include_directories(cnc_controller_data INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+add_library(stepper_motor_driver INTERFACE)
+target_include_directories(stepper_motor_driver INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(stepper_motor_driver INTERFACE cnc_controller_data)
+
+add_library(cnc_controller INTERFACE)
+target_include_directories(cnc_controller INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(cnc_controller INTERFACE cnc_controller_data stepper_motor_driver)
