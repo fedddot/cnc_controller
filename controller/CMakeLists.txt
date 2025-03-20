@@ -8,3 +8,11 @@ target_link_libraries(stepper_motor_driver INTERFACE cnc_controller_data)
 add_library(cnc_controller INTERFACE)
 target_include_directories(cnc_controller INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(cnc_controller INTERFACE cnc_controller_data stepper_motor_driver)
+
+enable_testing()
+
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+
+add_executable(cnc_controller_uts ${CMAKE_CURRENT_SOURCE_DIR}/src/cnc_controller_uts.cpp)
+target_link_libraries(cnc_controller_uts gtest gtest_main cnc_controller)
+add_test(cnc_controller_uts cnc_controller_uts)
