@@ -14,5 +14,5 @@ enable_testing()
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 add_executable(cnc_controller_uts ${CMAKE_CURRENT_SOURCE_DIR}/src/cnc_controller_uts.cpp)
-target_link_libraries(cnc_controller_uts gtest gtest_main cnc_controller)
-add_test(cnc_controller_uts cnc_controller_uts)
+target_link_libraries(cnc_controller_uts PRIVATE gtest gtest_main cnc_controller)
+add_test(NAME cnc_controller_uts COMMAND cnc_controller_uts_run)

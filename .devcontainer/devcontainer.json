@@ -23,7 +23,8 @@
 				"ms-vscode.cmake-tools",
 				"josetr.cmake-language-support-vscode",
 				"ms-vscode.cpptools",
-				"hediet.vscode-drawio"
+				"hediet.vscode-drawio",
+				"matepek.vscode-catch2-test-adapter"
 			],
 			"settings": {
 				"clangd.path": "/usr/bin/clangd"
