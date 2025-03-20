@@ -9,7 +9,7 @@ namespace cnc_controller {
 		Tlength z;
 	};
 
-	template <typename Tlength, Tduration>
+	template <typename Tlength, typename Tduration>
 	struct LinearMovement {
 		Vector<Tlength> destination;
 		Tduration duration;

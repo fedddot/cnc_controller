@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "cnc_controller.hpp"
 #include "cnc_controller_data.hpp"
+#include "stepper_motor_driver.hpp"
 
 using namespace cnc_controller;
 
