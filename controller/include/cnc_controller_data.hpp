@@ -14,6 +14,11 @@ namespace cnc_controller {
 		Vector<Tlength> destination;
 		Tduration duration;
 	};
+
+    enum class Direction: int {
+        CW,
+        CCW
+    };
 }
 
 #endif // CNC_CONTROLLER_DATA_HPP
