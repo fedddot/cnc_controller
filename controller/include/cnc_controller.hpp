@@ -1,6 +1,8 @@
 #ifndef	CNC_CONTROLLER_HPP
 #define	CNC_CONTROLLER_HPP
 
+#include <stdexcept>
+
 #include "cnc_controller_data.hpp"
 
 namespace cnc_controller {
@@ -18,10 +20,14 @@ namespace cnc_controller {
 	};
 
 	template <typename Tlength, typename Tduration>
-	void CncController<Tlength, Tduration>::move(const LinearMovement<Tlength, Tduration>& movement) {
+	inline CncController<Tlength, Tduration>::CncController() {
 		
-		// Move the CNC machine to the destination
 	}
+
+	template <typename Tlength, typename Tduration>
+	inline void CncController<Tlength, Tduration>::move(const LinearMovement<Tlength, Tduration>& movement) {
+		throw std::runtime_error("not implemented");
+	}	
 }
 
 #endif // CNC_CONTROLLER_HPP
