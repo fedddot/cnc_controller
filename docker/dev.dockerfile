@@ -15,6 +15,10 @@ WORKDIR /usr/app/external/jsoncpp
 RUN wget https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.9.6.tar.gz
 ENV JSONCPP_ARCHIVE_PATH=/usr/app/external/jsoncpp/1.9.6.tar.gz
 
+ARG USER_NAME="dev"
+RUN useradd -m -s /bin/bash ${USER_NAME}
+USER ${USER_NAME}
+
 # Sources root dir should be mounted to this location when running the container
 WORKDIR /usr/app/src
 
