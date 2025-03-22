@@ -19,6 +19,12 @@ namespace cnc_controller {
         CW,
         CCW
     };
+
+	enum class Axis: int {
+		X = 0,
+		Y,
+		Z
+	};
 }
 
 #endif // CNC_CONTROLLER_DATA_HPP
