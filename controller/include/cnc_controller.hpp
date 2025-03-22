@@ -10,14 +10,13 @@
 #include "stepper_motor_driver.hpp"
 
 namespace cnc_controller {
-	template <typename Tlength, typename Tduration>
 	class CncController {
 	public:
 		using StepperMotorDriverCreator = std::function<StepperMotorDriver *(const Axis&)>;
-		using DelayFunction = std::function<void(const Tduration&)>;
+		using DelayFunction = std::function<void(const unsigned int& delay_ms)>;
 
 		CncController(
-			const unsigned int steps_per_length,
+			const unsigned int steps_per_mm,
 			const StepperMotorDriverCreator& stepper_motor_driver_creator,
 			const DelayFunction& delay_function
 		);
@@ -25,21 +24,20 @@ namespace cnc_controller {
 		CncController& operator=(const CncController&) = delete;
 		~CncController() noexcept = default;
 
-		void move(const LinearMovement<Tlength, Tduration>& movement);
+		void move(const LinearMovement& movement);
 	private:
-		unsigned int m_steps_per_length;
+		unsigned int m_steps_per_mm;
 		DelayFunction m_delay_function;
 		std::map<Axis, std::unique_ptr<StepperMotorDriver>> m_stepper_motor_drivers;
 	};
 
-	template <typename Tlength, typename Tduration>
-	inline CncController<Tlength, Tduration>::CncController(
-		const unsigned int steps_per_length,
+	inline CncController::CncController(
+		const unsigned int steps_per_mm,
 		const StepperMotorDriverCreator& stepper_motor_driver_creator,
 		const DelayFunction& delay_function
-	) : m_steps_per_length(steps_per_length), m_delay_function(delay_function) {
-		if (!steps_per_length) {
-			throw std::invalid_argument("steps_per_length must be a positive integer");
+	) : m_steps_per_mm(steps_per_mm), m_delay_function(delay_function) {
+		if (!steps_per_mm) {
+			throw std::invalid_argument("steps_per_mm must be a positive integer");
 		}
 		if (!delay_function) {
 			throw std::invalid_argument("delay_function must be callable");
@@ -52,8 +50,7 @@ namespace cnc_controller {
 		}
 	}
 
-	template <typename Tlength, typename Tduration>
-	inline void CncController<Tlength, Tduration>::move(const LinearMovement<Tlength, Tduration>& movement) {
+	inline void CncController::move(const LinearMovement& movement) {
 		// throw std::runtime_error("not implemented");
 	}	
 }

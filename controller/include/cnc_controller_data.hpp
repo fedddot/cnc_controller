@@ -2,6 +2,7 @@
 #define	CNC_CONTROLLER_DATA_HPP
 
 #include <map>
+
 namespace cnc_controller {
 	enum class Axis: int {
 		X = 0,
@@ -9,26 +10,24 @@ namespace cnc_controller {
 		Z
 	};
 
-	template <typename Tlength>
 	class Vector {
 	public:
-		Vector(const Tlength& x, const Tlength& y, const Tlength& z): m_components({{Axis::X, x}, {Axis::Y, y}, {Axis::Z, z}}) {
+		Vector(const double& x, const double& y, const double& z): m_components({{Axis::X, x}, {Axis::Y, y}, {Axis::Z, z}}) {
 
 		}
 		Vector(const Vector&) = default;
 		Vector& operator=(const Vector&) = default;
 		~Vector() noexcept = default;
-		Tlength get(const Axis& axis) const {
+		double get(const Axis& axis) const {
 			return m_components.at(axis);
 		}
 	private:
-		std::map<Axis, Tlength> m_components;
+		std::map<Axis, double> m_components;
 	};
 
-	template <typename Tlength, typename Tduration>
 	struct LinearMovement {
-		Vector<Tlength> destination;
-		Tduration duration;
+		Vector destination;
+		unsigned int duration_ms;
 	};
 
     enum class Direction: int {
