@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include <stdexcept>
+#include <thread>
+#include <chrono>
 
 #include "cnc_controller.hpp"
 #include "cnc_controller_data.hpp"
@@ -21,7 +23,15 @@ TEST(cnc_controller_uts, move_sanity) {
     const auto linear_movement = LinearMovement<int, int>{linear_movement_vector, duration};
     const auto steps_per_length = 100;
     // WHEN
-    auto controller = CncController<int, int>(steps_per_length);
+    auto controller = CncController<int, int>(
+        steps_per_length,
+        [](const Axis& axis) -> StepperMotorDriver * { 
+            return new MockStepperMotorDriver();
+        },
+        [](const int& delay_ms) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));
+        }
+    );
 
     // THEN
     ASSERT_NO_THROW(controller.move(linear_movement));
