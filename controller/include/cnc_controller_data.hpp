@@ -1,12 +1,28 @@
 #ifndef	CNC_CONTROLLER_DATA_HPP
 #define	CNC_CONTROLLER_DATA_HPP
 
+#include <map>
 namespace cnc_controller {
+	enum class Axis: int {
+		X = 0,
+		Y,
+		Z
+	};
+
 	template <typename Tlength>
-	struct Vector {
-		Tlength x;
-		Tlength y;
-		Tlength z;
+	class Vector {
+	public:
+		Vector(const Tlength& x, const Tlength& y, const Tlength& z): m_components({{Axis::X, x}, {Axis::Y, y}, {Axis::Z, z}}) {
+
+		}
+		Vector(const Vector&) = default;
+		Vector& operator=(const Vector&) = default;
+		~Vector() noexcept = default;
+		Tlength get(const Axis& axis) const {
+			return m_components.at(axis);
+		}
+	private:
+		std::map<Axis, Tlength> m_components;
 	};
 
 	template <typename Tlength, typename Tduration>
@@ -19,12 +35,6 @@ namespace cnc_controller {
         CW,
         CCW
     };
-
-	enum class Axis: int {
-		X = 0,
-		Y,
-		Z
-	};
 }
 
 #endif // CNC_CONTROLLER_DATA_HPP
